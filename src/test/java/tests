@@ -1,0 +1,11 @@
+### Evaluating template “Hello, ${name}” with the value “Reader” for variable “name” results in the string “Hello, Reader”.
+
+### Evaluating template “${greeting}, ${name}” with values “Hi” and “Reader”, respectively, results in the string “Hi, Reader”.
+
+Evaluating template “Hello, ${name}” with no value for variable “name” raises a MissingValueError.
+
+Evaluating template “Hello, ${name}” with values “Hi” and “Reader” for variables “doesnotexist” and “name”, respectively, results in the string “Hello, Reader”.
+
+Evaluate template “${one}, ${two}, ${three}” with values “1”, “${foo}”, and “3”, respectively, and verify that the template engine renders the result as “1, ${foo}, 3”.
+
+And so forth... (We could, for example, include some specific examples that would serve as proof that the system handles Latin-1 characters.)
