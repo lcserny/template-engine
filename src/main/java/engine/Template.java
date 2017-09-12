@@ -1,9 +1,8 @@
 package engine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Template
 {
@@ -20,24 +19,16 @@ public class Template
     }
 
     public String evaluate() {
-        String result = replaceVariables();
-        checkForMissingValues(result);
-        return result;
+        TemplateParse parser = new TemplateParse();
+        List<Segment> segments = parser.parseSegments(templateText);
+        return concatenate(segments);
     }
 
-    private String replaceVariables() {
-        String result = templateText;
-        for (Map.Entry<String, String> entry : variables.entrySet()) {
-            String regex = "\\$\\{" + entry.getKey() + "\\}";
-            result = result.replaceAll(regex, entry.getValue());
+    private String concatenate(List<Segment> segments) {
+        StringBuilder result = new StringBuilder();
+        for (Segment segment : segments) {
+            result.append(segment.evaluate(variables));
         }
-        return result;
-    }
-
-    private void checkForMissingValues(String result) {
-        Matcher matcher = Pattern.compile("\\$\\{.+\\}").matcher(result);
-        if (matcher.find()) {
-            throw new MissingValueException(matcher.group());
-        }
+        return result.toString();
     }
 }

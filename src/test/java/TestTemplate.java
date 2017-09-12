@@ -2,6 +2,7 @@ import engine.MissingValueException;
 import engine.Template;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestTemplate
@@ -31,6 +32,7 @@ public class TestTemplate
     public void missingValueRaisesException() throws Exception {
         try {
             new Template("${foo}").evaluate();
+            Assert.fail("Missing variable value should raise an exception");
         } catch (MissingValueException e) {
             Assert.assertEquals("No value for ${foo}", e.getMessage());
         }
